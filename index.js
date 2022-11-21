@@ -1,53 +1,38 @@
-const itemlist = document.querySelector('#items');
-// console.log(itemlist.parentNode);
-// itemlist.parentNode.style.backgroundColor = 'red';
-// console.log(itemlist.parentNode.parentNode.parentNode.parentNode);
+const form = document.getElementById('addForm');
+const itemlist = document.getElementById('items');
 
-// console.log(itemlist.parentElement);
-// itemlist.parentElement.style.backgroundColor = 'red';
-// console.log(itemlist.parentElement.parentElement.parentElement);
-// childnode
-// console.log(itemlist.childNodes);
-// console.log(itemlist.children[1]);
-// itemlist.children[1].style.backgroundColor = 'blue';
+// for submit events
+form.addEventListener('submit', additem);
+itemlist.addEventListener('click', removeItem);
+// additem funtion
+function additem(e){
+    e.preventDefault();
+    //get input value
+    const newitem = document.getElementById('item');
+    // create new li element
+    const li = document.createElement('li');
+    li.className = 'list-group-item';
+    // add text node with input value
+    li.appendChild(document.createTextNode(newitem.value));
+    //create del button
+    const deleteBtn = document.createElement('button');
+    // add class to del button
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    // append text node
+    deleteBtn.appendChild(document.createTextNode('X'));
+    li.appendChild(deleteBtn);
+    //append li to list
+    itemlist.appendChild(li)
+}
 
-// //first child
-// console.log(itemlist.firstChild)
-// // first elementchild
-// console.log(itemlist.firstElementChild);
-// itemlist.firstElementChild.textContent = 'gulabjamun';
-
-// // lasst elementchild
-// console.log(itemlist.lastChild)
-// console.log(itemlist.lastElementChild);
-// itemlist.lastElementChild.textContent = 'gulabjamun';
-// itemlist.lastChild.textContent = 'gulabjamun';
-//next sibling
-// console.log(itemlist.nextSibling)
-// console.log(itemlist.nextElementSibling)
-// console.log(itemlist.previousSibling);
-// console.log(itemlist.previousElementSibling);
-// itemlist.previousElementSibling.style.color = 'green'
-// createElement
-
-
-//create a div
-const newDiv = document.createElement('div');
-newDiv.className = 'hello';
-newDiv.id = 'hello1';
-newDiv.setAttribute('title', 'hello div');
-
-
-// create text node
-const newDivText = document.createTextNode('hello world');
-//add text to div
-newDiv.appendChild(newDivText);
-
-const container = document.querySelector('header .container');
-const h1 = document.querySelector('header h1');
-
-console.log(newDiv);
-newDiv.style.fontSize = '30px'
-container.insertBefore(newDiv, h1);
+function removeItem(e) {
+    e.preventDefault;
+    if(e.target.classList.contains('delete')) {
+        if(confirm('Are you sure?')) {
+            const li = e.target.parentElement;
+            itemlist.removeChild(li);
+        }
+    }
+}
 
 
